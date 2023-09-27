@@ -16,5 +16,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "postcss-loader": "^7.3.3",
+        "sass": "^1.68.0"
     }
 }
