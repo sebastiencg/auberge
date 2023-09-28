@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bed index{% endblock %}
+
+{% block body %}
+    <h1>Bed index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Statue</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bed in beds %}
+            <tr>
+                <td>{{ bed.id }}</td>
+                <td>{{ bed.name }}</td>
+                <td>{{ bed.statue ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_bed_show', {'id': bed.id}) }}">show</a>
+                    <a href="{{ path('app_bed_edit', {'id': bed.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bed_new') }}">Create new</a>
+{% endblock %}

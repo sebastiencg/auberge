@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Bed{% endblock %}
+
+{% block body %}
+    <h1>Create new Bed</h1>
+
+    {{ include('bed/_form.html.twig') }}
+
+    <a href="{{ path('app_bed_index') }}">back to list</a>
+{% endblock %}
