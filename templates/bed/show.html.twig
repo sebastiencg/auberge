@@ -16,8 +16,15 @@
                 <td>{{ bed.name }}</td>
             </tr>
             <tr>
-                <th>Statue</th>
-                <td>{{ bed.statue ? 'Yes' : 'No' }}</td>
+                <th>Status</th>
+                <td>{{ bed.status ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>equipments</th>
+                <td>{% for equipment in equipments %}
+                        {{ equipment.name }},
+                    {% endfor %}
+                </td>
             </tr>
         </tbody>
     </table>

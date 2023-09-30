@@ -2,26 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\Room;
+use App\Entity\Equipment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RoomType extends AbstractType
+class EquipmentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name')
-            ->add('price')
-            ->add('place')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Room::class,
+            'data_class' => Equipment::class,
         ]);
     }
 }

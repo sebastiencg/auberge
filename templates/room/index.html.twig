@@ -10,7 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Place</th>
+                <th>Price</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,7 +19,7 @@
             <tr>
                 <td>{{ room.id }}</td>
                 <td>{{ room.name }}</td>
-                <td>{{ room.place }}</td>
+                <td>{{ room.price }}</td>
                 <td>
                     <a href="{{ path('app_room_show', {'id': room.id}) }}">show</a>
                     <a href="{{ path('app_room_edit', {'id': room.id}) }}">edit</a>

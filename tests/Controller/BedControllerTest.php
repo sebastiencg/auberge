@@ -47,8 +47,9 @@ class BedControllerTest extends WebTestCase
 
         $this->client->submitForm('Save', [
             'bed[name]' => 'Testing',
-            'bed[statue]' => 'Testing',
+            'bed[status]' => 'Testing',
             'bed[room]' => 'Testing',
+            'bed[equipment]' => 'Testing',
         ]);
 
         self::assertResponseRedirects('/bed/');
@@ -61,8 +62,9 @@ class BedControllerTest extends WebTestCase
         $this->markTestIncomplete();
         $fixture = new Bed();
         $fixture->setName('My Title');
-        $fixture->setStatue('My Title');
+        $fixture->setStatus('My Title');
         $fixture->setRoom('My Title');
+        $fixture->setEquipment('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -80,8 +82,9 @@ class BedControllerTest extends WebTestCase
         $this->markTestIncomplete();
         $fixture = new Bed();
         $fixture->setName('My Title');
-        $fixture->setStatue('My Title');
+        $fixture->setStatus('My Title');
         $fixture->setRoom('My Title');
+        $fixture->setEquipment('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -90,8 +93,9 @@ class BedControllerTest extends WebTestCase
 
         $this->client->submitForm('Update', [
             'bed[name]' => 'Something New',
-            'bed[statue]' => 'Something New',
+            'bed[status]' => 'Something New',
             'bed[room]' => 'Something New',
+            'bed[equipment]' => 'Something New',
         ]);
 
         self::assertResponseRedirects('/bed/');
@@ -99,8 +103,9 @@ class BedControllerTest extends WebTestCase
         $fixture = $this->repository->findAll();
 
         self::assertSame('Something New', $fixture[0]->getName());
-        self::assertSame('Something New', $fixture[0]->getStatue());
+        self::assertSame('Something New', $fixture[0]->getStatus());
         self::assertSame('Something New', $fixture[0]->getRoom());
+        self::assertSame('Something New', $fixture[0]->getEquipment());
     }
 
     public function testRemove(): void
@@ -111,8 +116,9 @@ class BedControllerTest extends WebTestCase
 
         $fixture = new Bed();
         $fixture->setName('My Title');
-        $fixture->setStatue('My Title');
+        $fixture->setStatus('My Title');
         $fixture->setRoom('My Title');
+        $fixture->setEquipment('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();

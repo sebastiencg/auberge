@@ -10,7 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Statue</th>
+                <th>Status</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,7 +19,7 @@
             <tr>
                 <td>{{ bed.id }}</td>
                 <td>{{ bed.name }}</td>
-                <td>{{ bed.statue ? 'Yes' : 'No' }}</td>
+                <td>{{ bed.status ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('app_bed_show', {'id': bed.id}) }}">show</a>
                     <a href="{{ path('app_bed_edit', {'id': bed.id}) }}">edit</a>

@@ -19,10 +19,13 @@ class Room
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?int $place = null;
+    private ?int $price = null;
 
     #[ORM\OneToMany(mappedBy: 'room', targetEntity: Bed::class)]
     private Collection $bed;
+
+    #[ORM\Column]
+    private ?int $place = null;
 
     public function __construct()
     {
@@ -46,14 +49,14 @@ class Room
         return $this;
     }
 
-    public function getPlace(): ?int
+    public function getPrice(): ?int
     {
-        return $this->place;
+        return $this->price;
     }
 
-    public function setPlace(int $place): static
+    public function setPrice(int $price): static
     {
-        $this->place = $place;
+        $this->price = $price;
 
         return $this;
     }
@@ -84,6 +87,18 @@ class Room
                 $bed->setRoom(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPlace(): ?int
+    {
+        return $this->place;
+    }
+
+    public function setPlace(int $place): static
+    {
+        $this->place = $place;
 
         return $this;
     }

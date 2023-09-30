@@ -32,7 +32,6 @@ class RoomController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($room);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_room_index', [], Response::HTTP_SEE_OTHER);
         }
 

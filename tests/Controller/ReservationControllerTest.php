@@ -2,23 +2,23 @@
 
 namespace App\Test\Controller;
 
-use App\Entity\Room;
-use App\Repository\RoomRepository;
+use App\Entity\Reservation;
+use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class RoomControllerTest extends WebTestCase
+class ReservationControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
-    private RoomRepository $repository;
-    private string $path = '/room/';
+    private ReservationRepository $repository;
+    private string $path = '/reservation/';
     private EntityManagerInterface $manager;
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $this->repository = static::getContainer()->get('doctrine')->getRepository(Room::class);
+        $this->repository = static::getContainer()->get('doctrine')->getRepository(Reservation::class);
 
         foreach ($this->repository->findAll() as $object) {
             $this->manager->remove($object);
@@ -30,7 +30,7 @@ class RoomControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', $this->path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Room index');
+        self::assertPageTitleContains('Reservation index');
 
         // Use the $crawler to perform additional assertions e.g.
         // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
@@ -46,11 +46,16 @@ class RoomControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(200);
 
         $this->client->submitForm('Save', [
-            'room[name]' => 'Testing',
-            'room[price]' => 'Testing',
+            'reservation[name]' => 'Testing',
+            'reservation[price]' => 'Testing',
+            'reservation[dateIn]' => 'Testing',
+            'reservation[dateOut]' => 'Testing',
+            'reservation[day]' => 'Testing',
+            'reservation[status]' => 'Testing',
+            'reservation[bed]' => 'Testing',
         ]);
 
-        self::assertResponseRedirects('/room/');
+        self::assertResponseRedirects('/reservation/');
 
         self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
     }
@@ -58,9 +63,14 @@ class RoomControllerTest extends WebTestCase
     public function testShow(): void
     {
         $this->markTestIncomplete();
-        $fixture = new Room();
+        $fixture = new Reservation();
         $fixture->setName('My Title');
         $fixture->setPrice('My Title');
+        $fixture->setDateIn('My Title');
+        $fixture->setDateOut('My Title');
+        $fixture->setDay('My Title');
+        $fixture->setStatus('My Title');
+        $fixture->setBed('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -68,7 +78,7 @@ class RoomControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Room');
+        self::assertPageTitleContains('Reservation');
 
         // Use assertions to check that the properties are properly displayed.
     }
@@ -76,9 +86,14 @@ class RoomControllerTest extends WebTestCase
     public function testEdit(): void
     {
         $this->markTestIncomplete();
-        $fixture = new Room();
+        $fixture = new Reservation();
         $fixture->setName('My Title');
         $fixture->setPrice('My Title');
+        $fixture->setDateIn('My Title');
+        $fixture->setDateOut('My Title');
+        $fixture->setDay('My Title');
+        $fixture->setStatus('My Title');
+        $fixture->setBed('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -86,16 +101,26 @@ class RoomControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
 
         $this->client->submitForm('Update', [
-            'room[name]' => 'Something New',
-            'room[price]' => 'Something New',
+            'reservation[name]' => 'Something New',
+            'reservation[price]' => 'Something New',
+            'reservation[dateIn]' => 'Something New',
+            'reservation[dateOut]' => 'Something New',
+            'reservation[day]' => 'Something New',
+            'reservation[status]' => 'Something New',
+            'reservation[bed]' => 'Something New',
         ]);
 
-        self::assertResponseRedirects('/room/');
+        self::assertResponseRedirects('/reservation/');
 
         $fixture = $this->repository->findAll();
 
         self::assertSame('Something New', $fixture[0]->getName());
         self::assertSame('Something New', $fixture[0]->getPrice());
+        self::assertSame('Something New', $fixture[0]->getDateIn());
+        self::assertSame('Something New', $fixture[0]->getDateOut());
+        self::assertSame('Something New', $fixture[0]->getDay());
+        self::assertSame('Something New', $fixture[0]->getStatus());
+        self::assertSame('Something New', $fixture[0]->getBed());
     }
 
     public function testRemove(): void
@@ -104,9 +129,14 @@ class RoomControllerTest extends WebTestCase
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
-        $fixture = new Room();
+        $fixture = new Reservation();
         $fixture->setName('My Title');
         $fixture->setPrice('My Title');
+        $fixture->setDateIn('My Title');
+        $fixture->setDateOut('My Title');
+        $fixture->setDay('My Title');
+        $fixture->setStatus('My Title');
+        $fixture->setBed('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -117,6 +147,6 @@ class RoomControllerTest extends WebTestCase
         $this->client->submitForm('Delete');
 
         self::assertSame($originalNumObjectsInRepository, count($this->repository->findAll()));
-        self::assertResponseRedirects('/room/');
+        self::assertResponseRedirects('/reservation/');
     }
 }

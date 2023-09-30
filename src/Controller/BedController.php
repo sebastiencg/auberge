@@ -30,6 +30,7 @@ class BedController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $bed->setStatus(false);
             $entityManager->persist($bed);
             $entityManager->flush();
 
@@ -45,8 +46,10 @@ class BedController extends AbstractController
     #[Route('/{id}', name: 'app_bed_show', methods: ['GET'])]
     public function show(Bed $bed): Response
     {
+
         return $this->render('bed/show.html.twig', [
             'bed' => $bed,
+            'equipments'=>$bed->getEquipment()->getValues()
         ]);
     }
 
