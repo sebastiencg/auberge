@@ -10,6 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Email</th>
                 <th>Price</th>
                 <th>DateIn</th>
                 <th>DateOut</th>
@@ -23,6 +24,7 @@
             <tr>
                 <td>{{ reservation.id }}</td>
                 <td>{{ reservation.name }}</td>
+                <td>{{ reservation.email }}</td>
                 <td>{{ reservation.price }}</td>
                 <td>{{ reservation.dateIn ? reservation.dateIn|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ reservation.dateOut ? reservation.dateOut|date('Y-m-d H:i:s') : '' }}</td>
@@ -41,5 +43,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_reservation_new') }}">Create new</a>
 {% endblock %}

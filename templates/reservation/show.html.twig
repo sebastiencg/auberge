@@ -16,6 +16,10 @@
                 <td>{{ reservation.name }}</td>
             </tr>
             <tr>
+                <th>Email</th>
+                <td>{{ reservation.email }}</td>
+            </tr>
+            <tr>
                 <th>Price</th>
                 <td>{{ reservation.price }}</td>
             </tr>
@@ -26,6 +30,14 @@
             <tr>
                 <th>DateOut</th>
                 <td>{{ reservation.dateOut ? reservation.dateOut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Room</th>
+                <td>{{ reservation.bed.room.name }}</td>
+            </tr>
+            <tr>
+                <th>Bed</th>
+                <td>{{ reservation.bed.name }}</td>
             </tr>
             <tr>
                 <th>Day</th>
