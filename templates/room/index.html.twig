@@ -29,6 +29,8 @@
                 <td>
                     <a href="{{ path('app_room_show', {'id': room.id}) }}">show</a>
                     <a href="{{ path('app_room_edit', {'id': room.id}) }}">edit</a>
+                    <a href="{{ path('app_reservation_new', {'id': room.id}) }}">reserved</a>
+
                 </td>
             </tr>
         {% else %}

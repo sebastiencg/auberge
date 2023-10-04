@@ -21,6 +21,8 @@ class ReservationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $room = $options['room']; // Access the passed room here
+
         $builder
             ->add('name')
             ->add('dateIn' ,DateTimeType::class, [
@@ -34,16 +36,24 @@ class ReservationType extends AbstractType
                 'constraints' => [
                     new Callback([$this, 'validateEndDate']),
                 ]])
-            ->add('bed', EntityType::class,[
-                'class'=>Bed::class,
-                'choice_label'=>'name'
-            ])        ;
+            ->add('bed', EntityType::class, [
+                'class' => Bed::class,
+                'choice_label' => 'name',
+                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) use ($room) {
+                    return $er->createQueryBuilder('b')
+                        ->where('b.room = :room')
+                        ->setParameter('room', $room);
+                },
+            ]);
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Reservation::class,
+            'room' => null, // Add an option to accept the room
+
         ]);
     }
     public function validateEndDate($endDate, ExecutionContextInterface $context)
@@ -58,4 +68,5 @@ class ReservationType extends AbstractType
                 ->addViolation();
         }
     }
+
 }

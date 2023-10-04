@@ -67,18 +67,6 @@ class ReservationController extends AbstractController
             }
             dd(count($bedOccupy));*/
 
-
-
-
-
-
-
-
-
-
-
-
-
             $reservation->setEmail($this->getUser()->getEmail());
             $reservation->setDay($differenceJours);
             $reservation->setPrice($room->getPrice()*$differenceJours);
@@ -89,6 +77,9 @@ class ReservationController extends AbstractController
 
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
+        $form = $this->createForm(ReservationType::class, $reservation, [
+            'room' => $room, // Pass the room to the form
+        ]);
         return $this->render('reservation/new.html.twig', [
             'reservation' => $reservation,
             'form' => $form,
