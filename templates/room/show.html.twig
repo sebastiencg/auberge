@@ -25,7 +25,11 @@
             </tr>
             <tr>
                 <th>place Restante</th>
-                <td>{{ room.place }}</td>
+                <td>{{ room.place-bedOccupy|length }}</td>
+            </tr>
+            <tr>
+                <th>image</th>
+                <td><img src="{{ vich_uploader_asset(room.image, 'imageFile')}}" style="height: 100px"></td>
             </tr>
         </tbody>
     </table>

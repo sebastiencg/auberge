@@ -26,11 +26,11 @@ class ReservationType extends AbstractType
         $builder
             ->add('name')
             ->add('dateIn' ,DateTimeType::class, [
-        'widget' => 'single_text',
-        'constraints' => [
-            new GreaterThan([
-                'value' => new \DateTime('today')]), // Minimum date constraint
-        ]])
+                'widget' => 'single_text',
+                'constraints' => [
+                    new GreaterThan([
+                        'value' => new \DateTime('today')]), // Minimum date constraint
+                ]])
             ->add('dateOut',DateTimeType::class, [
                 'widget' => 'single_text',
                 'constraints' => [

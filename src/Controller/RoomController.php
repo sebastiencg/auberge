@@ -44,8 +44,18 @@ class RoomController extends AbstractController
     #[Route('/{id}', name: 'app_room_show', methods: ['GET'])]
     public function show(Room $room): Response
     {
+        $reservation=new \DateTime();
+        $bedOccupy=array();
+        foreach ($room->getBed()->getValues() as $bed){
+            foreach ($bed->getReservations()->getValues() as $item){
+                if ($reservation>=$item->getDateIn()&&$reservation<=$item->getDateOut()){
+                    $bedOccupy[] = $item;
+                }
+            }
+        }
         return $this->render('room/show.html.twig', [
             'room' => $room,
+            'bedOccupy'=>$bedOccupy
         ]);
     }
 

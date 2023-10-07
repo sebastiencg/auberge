@@ -27,6 +27,12 @@ class Room
     #[ORM\Column]
     private ?int $place = null;
 
+    #[ORM\OneToOne(inversedBy: 'room', cascade: ['persist', 'remove'])]
+    private ?Image $image = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $color = null;
+
     public function __construct()
     {
         $this->bed = new ArrayCollection();
@@ -99,6 +105,30 @@ class Room
     public function setPlace(int $place): static
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): static
+    {
+        $this->color = $color;
 
         return $this;
     }

@@ -24,14 +24,40 @@ class ReservationController extends AbstractController
             'reservations' => $reservationRepository->findAll(),
         ]);
     }
+    #[Route('/planning', name: 'app_reservation_planning', methods: ['GET'])]
+    public function planning(ReservationRepository $reservationRepository): Response
+    {
+        $calendars=$reservationRepository->findAll();
+        foreach ($calendars as $calendar){
+            $data=[
+                'id'=>$calendar->getId(),
+                'start'=>$calendar->getDateIn()->format('Y-m-d H:i'),
+                'end'=>$calendar->getDateOut()->format('Y-m-d H:i'),
+                'title'=>$calendar->getName() .' '.$calendar->getBed()->getRoom()->getName().' '.$calendar->getBed()->getName().' montant $ '.$calendar->getPrice(),
+                'statue'=>$calendar->getEmail(),
+                'color'=>$calendar->getBed()->getRoom()->getColor()
+            ];
+            $datas[] = $data;
+        }
+        if (empty($datas)){
+            $datas=[""];
+        }
+
+        $json=json_encode($datas);
+
+        return $this->render('home/planning.html.twig',[
+            'json'=>$json
+        ]);
+    }
 
     #[Route('/new/{id}', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, Room $room, ReservationRepository $reservationRepository, ): Response
     {
         $reservation = new Reservation();
-        $form = $this->createForm(ReservationType::class, $reservation);
+        $form = $this->createForm(ReservationType::class, $reservation, [
+            'room' => $room, // Pass the room to the form
+        ]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             if(!$this->getUser()){
                 return  $this->redirectToRoute('app_register');
@@ -71,15 +97,12 @@ class ReservationController extends AbstractController
             $reservation->setDay($differenceJours);
             $reservation->setPrice($room->getPrice()*$differenceJours);
             $reservation->setStatus(true);
-
             $entityManager->persist($reservation);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
-        $form = $this->createForm(ReservationType::class, $reservation, [
-            'room' => $room, // Pass the room to the form
-        ]);
+
         return $this->render('reservation/new.html.twig', [
             'reservation' => $reservation,
             'form' => $form,
@@ -99,7 +122,7 @@ class ReservationController extends AbstractController
     {
 
 
-    if(!$reservation){return $this->redirectToRoute('app_home');}
+        if(!$reservation){return $this->redirectToRoute('app_home');}
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

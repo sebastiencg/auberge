@@ -1,14 +1,137 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Auberge{% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        <!-- Custom styles for this template -->
+    {% endblock %}
+
+    {% block javascripts %}
+    {% endblock %}
 
 {% block body %}
+    <div class="sub_page">
+        <div class="hero_area">
+            <!-- header section strats -->
+            <header class="header_section">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
+                        <a class="navbar-brand" href="{{ path('app_home') }}">
+            <span>
+              Auberge
+            </span>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                                <ul class="navbar-nav  ">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('app_home') }}"> Home </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href=""></a>
+                                    </li>
+                                </ul>
+                                <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
+                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            <!-- end header section -->
+
+        </div>
+        <div class="bg">
+            <!-- about section -->
+            <section class="about_section layout_padding">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-5 offset-md-2">
+                            <div class="about_detail-box">
+                                <h3 class="custom_heading ">
+                                    about our youth hostel
+                                </h3>
+                                <p class="">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="about_img-box">
+                                <img style="border-radius: 15px" src="{{ asset('images/about.jpg') }}" alt="image room">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="bg">
 
 
-<div class="example-wrapper">
-    <h1>Hello ici prochainement mon site d'auberge de jeunesse  😉</h1>
-    <p>à bientot</p>
-    <br>
-    {{ mot.mot }}
-</div>
+                <!-- brand section -->
+
+                <section class="brand_section layout_padding2">
+                    <div class="container">
+                        <div class="brand_heading">
+                            <h3 class="custom_heading">
+                                Our watch room
+                            </h3>
+                            <p class="font-weight-bold">
+                                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                            </p>
+                        </div>
+                    </div>
+                    <div class="container-fluid brand_item-container">
+                        {% for room in rooms %}
+                            <div class="brand_item-box" style="width: 380px">
+                                <div class="brand_img-box " style="background-image: url({{ vich_uploader_asset(room.image, 'imageFile')}})" >
+                                    <a href="{{ path('app_reservation_new', {'id': room.id}) }}">
+                                        Reserve
+                                    </a>
+                                </div>
+                                <div class="brand_detail-box">
+                                    <h5>
+                                        <span>$ {{ room.price }} </span>la nuit
+                                    </h5>
+                                    <h6 class="">
+                                        {{ room.name }}
+                                    </h6>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                </section>
+
+
+                <!-- end brand section -->
+
+            </div>
+
+            <!-- end about section -->
+
+
+        </div>
+
+        <!-- footer section -->
+        <section class="container-fluid footer_section">
+            <p>
+                © 2023 All Rights Reserved By
+                <a href="https://miantsebastien.com/">miantsebastien.com</a>
+            </p>
+        </section>
+        <!-- footer section -->
+
+    </div>
+
+
 {% endblock %}

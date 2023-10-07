@@ -1,6 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Auberge{% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        <!-- Custom styles for this template -->
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    locale:'fr',
+                    headerToolbar: {
+                        left: 'prev,next',
+                        center: 'title',
+                        right: 'timeGridWeek,timeGridDay,dayGridMonth,listWeek',
+                    },
+                    events:
+                    {{ json|raw }}
+                });
+                calendar.render();
+            });
+
+        </script>
+    {% endblock %}
 
 {% block body %}
     <div class="sub_page">
@@ -45,19 +72,8 @@
 
             <!-- about section -->
             <div class="container">
-                <h1>Register</h1>
+                <div id='calendar'></div>
 
-                {{ form_errors(registrationForm) }}
-
-                {{ form_start(registrationForm) }}
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.plainPassword, {
-                    label: 'Password'
-                }) }}
-                {{ form_row(registrationForm.agreeTerms) }}
-
-                <button type="submit" class="btn">Register</button>
-                {{ form_end(registrationForm) }}
             </div>
 
             <!-- end about section -->
