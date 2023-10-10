@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/bed')]
+#[Route('/admin/bed')]
 class BedController extends AbstractController
 {
     #[Route('/', name: 'app_bed_index', methods: ['GET'])]

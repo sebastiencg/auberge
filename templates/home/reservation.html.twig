@@ -30,10 +30,7 @@
                 <td>{{ reservation.dateOut ? reservation.dateOut|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ reservation.day }}</td>
                 <td>{{ reservation.status ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
-                    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
-                </td>
+
             </tr>
         {% else %}
             <tr>

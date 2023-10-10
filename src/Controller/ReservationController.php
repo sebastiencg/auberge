@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/reservation')]
+#[Route('/admin/reservation')]
 class ReservationController extends AbstractController
 {
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
@@ -93,7 +93,7 @@ class ReservationController extends AbstractController
             }
             dd(count($bedOccupy));*/
 
-            $reservation->setEmail($this->getUser()->getEmail());
+            $reservation->setEMail($this->getUser()->getEmail());
             $reservation->setDay($differenceJours);
             $reservation->setPrice($room->getPrice()*$differenceJours);
             $reservation->setStatus(true);
@@ -108,7 +108,22 @@ class ReservationController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[Route('/check/Room/{id}', name: 'app_check_room', methods: ['GET'])]
+    public function checkRoom(Room $room): Response
+    {
+        $date=new \DateTime();
+        $bedOccupy=array();
+        foreach ($room->getBed()->getValues() as $bed){
+            foreach ($bed->getReservations()->getValues() as $item){
+                if ($date>=$item->getDateIn()&&$date<$item->getDateOut()){
+                    $bedOccupy[] = $item;
+                }
+            }
+        }
+        return $this->render('bed/checkBed.html.twig', [
+            'beds' => $bedOccupy,
+        ]);
+    }
     #[Route('/{id}', name: 'app_reservation_show', methods: ['GET'])]
     public function show(Reservation $reservation): Response
     {

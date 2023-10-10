@@ -3,78 +3,28 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="sub_page">
-        <div class="hero_area">
-            <!-- header section strats -->
-            <header class="header_section">
-                <div class="container-fluid">
-                    <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
-                        <a class="navbar-brand" href="{{ path('app_home') }}">
-            <span>
-              Auberge
-            </span>
-                        </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+    <!-- about section -->
+    <div class="container">
+        <h1>Register</h1>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
-                                <ul class="navbar-nav  ">
+        {{ form_errors(registrationForm) }}
 
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('app_home') }}"> Home </a>
-                                    </li>
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
 
-                                    <li class="nav-item">
-                                        <a class="nav-link" href=""></a>
-                                    </li>
-                                </ul>
-                                <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
-                                </form>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </header>
-            <!-- end header section -->
-
-        </div>
-        <div class="bg">
-
-            <!-- about section -->
-            <div class="container">
-                <h1>Register</h1>
-
-                {{ form_errors(registrationForm) }}
-
-                {{ form_start(registrationForm) }}
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.plainPassword, {
-                    label: 'Password'
-                }) }}
-                {{ form_row(registrationForm.agreeTerms) }}
-
-                <button type="submit" class="btn">Register</button>
-                {{ form_end(registrationForm) }}
-            </div>
-
-            <!-- end about section -->
+        <button type="submit" class="btn">Register</button>
+        {{ form_end(registrationForm) }}
 
 
-        </div>
-
-        <!-- footer section -->
-        <section class="container-fluid footer_section">
-            <p>
-                © 2023 All Rights Reserved By
-                <a href="https://miantsebastien.com/">miantsebastien.com</a>
-            </p>
-        </section>
-        <!-- footer section -->
-
+        <br>
+        <br>
+        <a href="{{ path('app_login') }}" class="btn btn-secondary"> login</a>
     </div>
 
+    <!-- end about section -->
 
 {% endblock %}
